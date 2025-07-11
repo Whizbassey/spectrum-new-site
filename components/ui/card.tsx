@@ -105,6 +105,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     if (!ctx) return;
 
     function resizeCanvas() {
+      if (!canvas || !card) return;
       canvas.width = card.offsetWidth;
       canvas.height = card.offsetHeight;
     }
@@ -141,7 +142,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         ctx.fill();
       },
     };
-    const lines = [];
+    const lines: any[] = [];
     for (let i = 0; i < lineCount; i++) {
       lines.push(new (Line as any)(i / lineCount));
     }
@@ -149,6 +150,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     let animationFrame: number;
     function render() {
       animationFrame = requestAnimationFrame(render);
+      if (!canvas || !ctx) return;
       wave += 0.02;
       width = canvas.width;
       height = canvas.height;

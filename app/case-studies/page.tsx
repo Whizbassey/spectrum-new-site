@@ -1,276 +1,164 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { TrendingUp, Users, DollarSign, Clock, ArrowRight, Building, ShoppingCart, Heart } from 'lucide-react'
+import { useEffect, useState } from 'react';
+import { supabase } from '../../lib/supabaseClient';
+import Head from 'next/head';
+import Link from 'next/link';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+
+interface CaseStudy {
+  id: number;
+  title: string;
+  company: string;
+  industry: string;
+  image: string;
+  description: string;
+  results: string;
+}
 
 export default function CaseStudies() {
-  const caseStudies = [
-    {
-      id: 1,
-      title: 'E-commerce Automation',
-      company: 'TechRetail Inc.',
-      industry: 'E-commerce',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-      challenge: 'Manual order processing was taking 4-6 hours daily, causing delays and customer complaints.',
-      solution: 'Implemented AI-powered order processing system with automated inventory management.',
-      results: [
-        { metric: '80%', label: 'Reduction in processing time' },
-        { metric: '95%', label: 'Customer satisfaction increase' },
-        { metric: '$50K', label: 'Annual cost savings' }
-      ],
-      description: 'TechRetail Inc. was struggling with manual order processing that was consuming valuable time and resources. Our AI solution automated the entire process, from order receipt to inventory updates.'
-    },
-    {
-      id: 2,
-      title: 'Customer Support Chatbot',
-      company: 'HealthCare Plus',
-      industry: 'Healthcare',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop',
-      challenge: '24/7 customer support was expensive and response times were inconsistent.',
-      solution: 'Deployed intelligent chatbot with natural language processing for patient inquiries.',
-      results: [
-        { metric: '60%', label: 'Reduction in support costs' },
-        { metric: '24/7', label: 'Availability' },
-        { metric: '2min', label: 'Average response time' }
-      ],
-      description: 'HealthCare Plus needed a solution to provide round-the-clock support without the high costs of human agents. Our AI chatbot handles 80% of inquiries automatically.'
-    },
-    {
-      id: 3,
-      title: 'Predictive Analytics',
-      company: 'Manufacturing Corp',
-      industry: 'Manufacturing',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop',
-      challenge: 'Equipment failures were causing costly downtime and production delays.',
-      solution: 'Developed ML model to predict equipment maintenance needs and prevent failures.',
-      results: [
-        { metric: '90%', label: 'Fewer unplanned outages' },
-        { metric: '30%', label: 'Reduction in maintenance costs' },
-        { metric: '15%', label: 'Increase in productivity' }
-      ],
-      description: 'Manufacturing Corp was experiencing frequent equipment failures that disrupted production. Our predictive analytics solution now forecasts maintenance needs with 95% accuracy.'
-    },
-    {
-      id: 4,
-      title: 'Document Processing',
-      company: 'Legal Associates',
-      industry: 'Legal Services',
-      image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop',
-      challenge: 'Manual document review was time-consuming and prone to human error.',
-      solution: 'AI-powered document analysis system for contract review and legal research.',
-      results: [
-        { metric: '75%', label: 'Faster document review' },
-        { metric: '99%', label: 'Accuracy rate' },
-        { metric: '40%', label: 'Cost reduction' }
-      ],
-      description: 'Legal Associates was spending countless hours on document review. Our AI solution now processes and analyzes legal documents in minutes instead of hours.'
-    }
-  ]
+  const [studies, setStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [industryFilter, setIndustryFilter] = useState('All');
+  const [companyFilter, setCompanyFilter] = useState('All');
 
-  const stats = [
-    { number: '500+', label: 'Projects Completed', icon: <TrendingUp className="w-6 h-6" /> },
-    { number: '50+', label: 'Happy Clients', icon: <Users className="w-6 h-6" /> },
-    { number: '$2M+', label: 'Cost Savings', icon: <DollarSign className="w-6 h-6" /> },
-    { number: '99%', label: 'Success Rate', icon: <Clock className="w-6 h-6" /> }
-  ]
+  useEffect(() => {
+    async function fetchStudies() {
+      setLoading(true);
+      setError('');
+      const { data, error } = await supabase
+        .from('case_studies')
+        .select('id, title, company, industry, image, description, results')
+        .order('id', { ascending: false });
+      if (error) setError(error.message);
+      setStudies(data || []);
+      setLoading(false);
+    }
+    fetchStudies();
+  }, []);
+
+  // Get unique industries and companies
+  const industries = Array.from(new Set(studies.map(s => s.industry).filter(Boolean)));
+  const companies = Array.from(new Set(studies.map(s => s.company).filter(Boolean)));
+
+  // Filter studies
+  const filteredStudies = studies.filter(s =>
+    (industryFilter === 'All' || s.industry === industryFilter) &&
+    (companyFilter === 'All' || s.company === companyFilter)
+  );
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Case <span className="gradient-text">Studies</span>
+    <>
+      <Head>
+        <title>Case Studies | Spectrum AI</title>
+        <meta name="description" content="See how we've helped businesses transform with AI automation." />
+      </Head>
+      <div className="fixed inset-0 -z-20 bg-gradient-to-br from-violet-900/20 via-black to-orange-900/20 pointer-events-none" aria-hidden="true"></div>
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_0%,black_70%)] pointer-events-none" aria-hidden="true"></div>
+      <main className="max-w-7xl md:px-10 mr-auto ml-auto pt-32 pr-6 pb-24 pl-6 relative z-10">
+        <RevealOnScroll>
+          <div className="opacity-0 animate-slide-up text-center mb-20">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-6 uppercase font-inter">
+              Featured Cases
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto">
-              Real success stories from businesses that have transformed their operations 
-              with our AI solutions.
+            <p className="md:text-xl max-w-2xl leading-relaxed text-lg text-secondary mx-auto">
+              Exploring the intersection of technology, creativity, and human experience through innovative digital solutions.
             </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-16 bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center text-white mx-auto mb-4">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </motion.div>
-            ))}
+            <div className="w-1/2 h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent mx-auto mt-8"></div>
           </div>
-        </div>
-      </section>
-
-      {/* Case Studies Grid */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {caseStudies.map((study, index) => (
-              <motion.div
-                key={study.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden card-hover"
+        </RevealOnScroll>
+        {/* Filter Buttons */}
+        <RevealOnScroll>
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <div>
+              <span className="text-sm text-white/70 mr-2">Industry:</span>
+              <button
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${industryFilter === 'All' ? 'bg-orange-500 text-black' : 'bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 hover:border-white/20'}`}
+                onClick={() => setIndustryFilter('All')}
               >
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={study.image}
-                    alt={study.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-sm font-medium text-primary-600">{study.industry}</span>
-                    <span className="text-gray-400">•</span>
-                    <span className="text-sm text-gray-600">{study.company}</span>
+                All
+              </button>
+              {industries.map(ind => (
+                <button
+                  key={ind}
+                  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${industryFilter === ind ? 'bg-orange-500 text-black' : 'bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 hover:border-white/20'}`}
+                  onClick={() => setIndustryFilter(ind)}
+                >
+                  {ind}
+                </button>
+              ))}
+            </div>
+            <div>
+              <span className="text-sm text-white/70 mr-2">Company:</span>
+              <button
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${companyFilter === 'All' ? 'bg-orange-500 text-black' : 'bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 hover:border-white/20'}`}
+                onClick={() => setCompanyFilter('All')}
+              >
+                All
+              </button>
+              {companies.map(comp => (
+                <button
+                  key={comp}
+                  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${companyFilter === comp ? 'bg-orange-500 text-black' : 'bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 hover:border-white/20'}`}
+                  onClick={() => setCompanyFilter(comp)}
+                >
+                  {comp}
+                </button>
+              ))}
+            </div>
+          </div>
+        </RevealOnScroll>
+        {loading ? (
+          <RevealOnScroll>
+            <div className="text-center text-lg py-20">Loading...</div>
+          </RevealOnScroll>
+        ) : error ? (
+          <RevealOnScroll>
+            <div className="text-center text-red-500 py-20">{error}</div>
+          </RevealOnScroll>
+        ) : filteredStudies.length === 0 ? (
+          <RevealOnScroll>
+            <div className="text-center text-lg py-20">No case studies found.</div>
+          </RevealOnScroll>
+        ) : (
+          <RevealOnScroll>
+            <div className="grid gap-8 md:gap-10 lg:grid-cols-2 xl:grid-cols-3">
+              {filteredStudies.map(study => (
+                <Link key={study.id} href={`/case-studies/${study.id}`} className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10 hover:ring-white/20 transition-all duration-500 group cursor-pointer opacity-0 animate-slide-up">
+                  {study.image ? (
+                    <img src={study.image} alt={study.title} className="h-80 w-full transition duration-700 group-hover:scale-105 object-cover" />
+                  ) : (
+                    <div className="h-80 w-full bg-black/30 flex items-center justify-center text-gray-400">No image</div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                  <div className="absolute top-6 left-6 flex flex-col gap-2">
+                    <span className="bg-orange-500 text-black text-xs font-semibold tracking-wider py-2 px-4 rounded-full">
+                      {study.industry}
+                    </span>
+                    <span className="bg-white/10 text-xs text-white px-3 py-1 rounded-full">
+                      {study.company}
+                    </span>
                   </div>
-                  
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{study.title}</h3>
-                  <p className="text-gray-600 mb-6">{study.description}</p>
-                  
-                  <div className="space-y-4 mb-6">
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Challenge</h4>
-                      <p className="text-gray-600 text-sm">{study.challenge}</p>
+                  <div className="absolute bottom-8 left-6 right-6">
+                    <h3 className="text-2xl font-light leading-tight mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>
+                      {study.title}
+                    </h3>
+                    <p className="leading-relaxed text-sm font-light text-secondary mb-4 line-clamp-3">
+                      {study.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {study.results.split(',').map((result, i) => (
+                        <span key={i} className="bg-white/10 text-xs text-orange-200 px-2 py-1 rounded-full">{result.trim()}</span>
+                      ))}
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Solution</h4>
-                      <p className="text-gray-600 text-sm">{study.solution}</p>
-                    </div>
                   </div>
-                  
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    {study.results.map((result, idx) => (
-                      <div key={idx} className="text-center">
-                        <div className="text-2xl font-bold text-primary-600 mb-1">{result.metric}</div>
-                        <div className="text-xs text-gray-600">{result.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <button className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                    Read Full Case Study
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">What Our Clients Say</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Don't just take our word for it. Here's what our clients have to say about their experience.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: "Spectrum AI transformed our entire operation. The automation solution saved us countless hours and improved our customer satisfaction dramatically.",
-                author: "Sarah Johnson",
-                role: "CEO, TechRetail Inc.",
-                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
-              },
-              {
-                quote: "The AI chatbot solution exceeded our expectations. It handles 80% of our customer inquiries automatically, allowing our team to focus on complex cases.",
-                author: "Michael Chen",
-                role: "CTO, HealthCare Plus",
-                avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
-              },
-              {
-                quote: "Predictive analytics has revolutionized our maintenance schedule. We've reduced downtime by 90% and saved millions in operational costs.",
-                author: "Emily Rodriguez",
-                role: "Operations Director, Manufacturing Corp",
-                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-gray-50 p-8 rounded-2xl"
-              >
-                <div className="flex items-center mb-6">
-                  <Heart className="w-5 h-5 text-red-500 mr-1" />
-                  <Heart className="w-5 h-5 text-red-500 mr-1" />
-                  <Heart className="w-5 h-5 text-red-500 mr-1" />
-                  <Heart className="w-5 h-5 text-red-500 mr-1" />
-                  <Heart className="w-5 h-5 text-red-500" />
-                </div>
-                <p className="text-gray-600 mb-6 italic">"{testimonial.quote}"</p>
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.author}
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.author}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-white"
-          >
-            <h2 className="text-4xl font-bold mb-6">Ready to Join Our Success Stories?</h2>
-            <p className="text-xl opacity-90 mb-8">
-              Let's discuss how our AI solutions can transform your business operations.
-            </p>
-            <a href="/contact" className="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
-              Start Your Project
-            </a>
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  )
+                </Link>
+              ))}
+            </div>
+          </RevealOnScroll>
+        )}
+      </main>
+    </>
+  );
 } 

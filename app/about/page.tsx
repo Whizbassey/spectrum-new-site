@@ -1,7 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Target, Award, Globe, Brain, Zap, Shield } from 'lucide-react'
+import { Users, Target, Award, Globe, Brain, Zap, Shield, RefreshCw } from 'lucide-react'
+import { RainbowButton } from '@/components/ui/rainbow-button'
+import { Badge } from '@/components/ui/button'
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 
 export default function About() {
   const values = [
@@ -55,181 +58,185 @@ export default function About() {
   ]
 
   return (
-    <div className="pt-16">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary-50 to-secondary-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              About <span className="gradient-text">Spectrum AI</span>
+    <section className="container mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-32">
+      <RevealOnScroll>
+        <div className="flex flex-col items-center justify-center mb-20">
+          <div className="max-w-4xl w-full text-center">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-6 uppercase font-inter">
+              About <span className="text-white">Spectrum</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto">
-              We're a team of AI enthusiasts, engineers, and business strategists 
-              passionate about transforming businesses through intelligent automation.
+            <p className="md:text-xl max-w-2xl leading-relaxed text-lg text-secondary mx-auto">
+              Innovation doesn't have to be intimidating. At Spectrum Hub, we take the most advanced AI technologies and make them work seamlessly for real businesses facing real challenges. Our DNA is wired for breakthrough thinking, but our solutions are built for practical impact. We don't just push boundaries—we make crossing them effortless for our clients.
             </p>
-          </motion.div>
+            <div className="w-1/2 h-px bg-gradient-to-r from-transparent via-neutral-800 to-transparent mx-auto mt-8"></div>
+          </div>
         </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-              <p className="text-lg text-gray-600 mb-6">
-                To democratize AI technology and make intelligent automation accessible 
-                to businesses of all sizes. We believe that every organization deserves 
-                the opportunity to leverage the power of artificial intelligence.
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <div className="mb-2 flex flex-col items-center">
+          <Badge className="mb-4 inline-block" color="orange">Our Story and Mission</Badge>
+        </div>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <h2 className="text-3xl font-medium text-center mb-12 uppercase">What Inspires Us</h2>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-24">
+          <div className="card-container animated-border glass-card bg-black/40 backdrop-blur-lg border border-white/10 relative rounded-lg p-px overflow-hidden">
+            <div className="card-content rounded-lg p-8 relative z-10">
+              <span className="text-xs uppercase tracking-wide text-cyan-400/80 mb-2 block">Our Story</span>
+              <h2 className="text-2xl font-medium mb-4">Born from Curiosity, Driven by Possibility</h2>
+              <p className="text-secondary mb-4">
+                We started with a simple observation: the gap between AI's potential and its practical application was holding businesses back. While others saw complexity, we saw opportunity.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
-                Founded in 2020, Spectrum AI has grown from a small startup to a 
-                trusted partner for over 50 companies worldwide, helping them achieve 
-                unprecedented efficiency and growth through our AI solutions.
+              <p className="text-secondary">
+                Founded by AI researchers and business strategists, we bridge the divide between cutting-edge technology and real-world results.
               </p>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-600 mb-2">50+</div>
-                  <div className="text-gray-600">Happy Clients</div>
+            </div>
+          </div>
+          <div className="card-container animated-border glass-card bg-black/40 backdrop-blur-lg border border-white/10 relative rounded-lg p-px overflow-hidden">
+            <div className="card-content rounded-lg p-8 relative z-10">
+              <span className="text-xs uppercase tracking-wide text-cyan-400/80 mb-2 block">Our Mission</span>
+              <h2 className="text-2xl font-medium mb-4">Making AI Accessible, Practical, and Transformative</h2>
+              <p className="text-secondary mb-4">
+                We believe every business deserves to harness the power of artificial intelligence, regardless of size or industry.
+              </p>
+              <p className="text-secondary">
+                Our mission is to democratize AI transformation, making it as natural and essential as having a website or using email.
+              </p>
+            </div>
+          </div>
+        </div>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <div className="mb-24">
+          <div className="flex flex-col items-center mb-2">
+            <Badge className="mb-4 inline-block" color="violet">Our Values</Badge>
+          </div>
+          <h2 className="text-3xl font-medium text-center mb-12 uppercase">What Drives Us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="card-container animated-border glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg">
+              <div className="p-8">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4">
+                  <Zap className="h-6 w-6 text-blue-400" />
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary-600 mb-2">500+</div>
-                  <div className="text-gray-600">Projects Completed</div>
+                <h3 className="text-xl font-medium mb-2 uppercase">Innovation-Focused</h3>
+                <p className="text-secondary">Innovation That Serves - We innovate with purpose, focusing on AI breakthroughs that solve real business challenges</p>
+              </div>
+            </div>
+            <div className="card-container animated-border glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg">
+              <div className="p-8">
+                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-4">
+                  <Award className="h-6 w-6 text-green-400" />
+                </div>
+                <h3 className="text-xl font-medium mb-2 uppercase">Client Success</h3>
+                <p className="text-secondary">Client Success Obsession - Your wins are our wins; we measure our success by the transformation we create for your business</p>
+              </div>
+            </div>
+            <div className="card-container animated-border glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg">
+              <div className="p-8">
+                <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-4">
+                  <RefreshCw className="h-6 w-6 text-purple-400" />
+                </div>
+                <h3 className="text-xl font-medium mb-2 uppercase">Adaptability</h3>
+                <p className="text-secondary">Adaptive Excellence - We evolve our approaches as quickly as AI technology advances, ensuring you always have the best solutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <div className="mb-24">
+          <div className="flex flex-col items-center mb-2">
+            <Badge className="mb-4 inline-block" color="blue">Our Team</Badge>
+          </div>
+          <h2 className="text-3xl font-medium text-center mb-4 uppercase">Meet the Architects of Your AI Future</h2>
+          <p className="text-secondary text-center max-w-2xl mx-auto mb-12">Our team combines deep technical expertise with strategic business acumen. We're not just developers—we're transformation partners who understand that the best AI solutions are invisible to end users but transformative for businesses.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="team-member-card glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden relative transition-all duration-400 hover:-translate-y-3 hover:shadow-xl group rainbow-glow">
+              <div className="img-gradient-mask relative">
+                <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Alex Johnson" className="w-full h-72 object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
+              </div>
+              <div className="p-5 flex flex-col h-full">
+                <h3 className="text-xl font-medium">Alex Johnson</h3>
+                <div className="role-tag inline-block px-2 py-1 rounded-full text-xs font-medium mt-1 mb-2 bg-cyan-400/15 text-cyan-400">Founder & CEO</div>
+                <p className="text-secondary text-sm mt-3">Visionary leader with 15+ years in software development and product management.</p>
+                <div className="flex justify-center gap-2 mt-4">
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-twitter" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-linkedin-in" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-github" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fas fa-envelope" /></a>
                 </div>
               </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl p-8 text-white">
-                <Globe className="w-12 h-12 mb-6" />
-                <h3 className="text-2xl font-bold mb-4">Global Impact</h3>
-                <p className="text-lg opacity-90">
-                  Our AI solutions have helped businesses across 15+ countries 
-                  save millions in operational costs while improving efficiency 
-                  and customer satisfaction.
-                </p>
+            </div>
+            <div className="team-member-card glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden relative transition-all duration-400 hover:-translate-y-3 hover:shadow-xl group rainbow-glow">
+              <div className="img-gradient-mask relative">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Sarah Chen" className="w-full h-72 object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
               </div>
-            </motion.div>
+              <div className="p-5 flex flex-col h-full">
+                <h3 className="text-xl font-medium">Sarah Chen</h3>
+                <div className="role-tag inline-block px-2 py-1 rounded-full text-xs font-medium mt-1 mb-2 bg-cyan-400/15 text-cyan-400">CTO</div>
+                <p className="text-secondary text-sm mt-3">Engineering leader with expertise in scalable architecture and cloud infrastructure.</p>
+                <div className="flex justify-center gap-2 mt-4">
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-twitter" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-linkedin-in" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-github" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fas fa-envelope" /></a>
+                </div>
+              </div>
+            </div>
+            <div className="team-member-card glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden relative transition-all duration-400 hover:-translate-y-3 hover:shadow-xl group rainbow-glow">
+              <div className="img-gradient-mask relative">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="David Kim" className="w-full h-72 object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
+              </div>
+              <div className="p-5 flex flex-col h-full">
+                <h3 className="text-xl font-medium">David Kim</h3>
+                <div className="role-tag inline-block px-2 py-1 rounded-full text-xs font-medium mt-1 mb-2 bg-cyan-400/15 text-cyan-400">Lead Developer</div>
+                <p className="text-secondary text-sm mt-3">Full-stack developer with a passion for creating elegant solutions to complex problems.</p>
+                <div className="flex justify-center gap-2 mt-4">
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-twitter" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-linkedin-in" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-github" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fas fa-envelope" /></a>
+                </div>
+              </div>
+            </div>
+            <div className="team-member-card glass-card bg-black/40 backdrop-blur-lg border border-white/10 rounded-lg overflow-hidden relative transition-all duration-400 hover:-translate-y-3 hover:shadow-xl group rainbow-glow">
+              <div className="img-gradient-mask relative">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Emma Wilson" className="w-full h-72 object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
+              </div>
+              <div className="p-5 flex flex-col h-full">
+                <h3 className="text-xl font-medium">Emma Wilson</h3>
+                <div className="role-tag inline-block px-2 py-1 rounded-full text-xs font-medium mt-1 mb-2 bg-cyan-400/15 text-cyan-400">UX Designer</div>
+                <p className="text-secondary text-sm mt-3">Award-winning designer focused on creating intuitive and delightful user experiences.</p>
+                <div className="flex justify-center gap-2 mt-4">
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-twitter" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-linkedin-in" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fab fa-dribbble" /></a>
+                  <a href="#" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white hover:bg-cyan-400/60 transition-all"><i className="fas fa-envelope" /></a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Values</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              These core values guide everything we do and shape how we work with our clients.
+      </RevealOnScroll>
+      <RevealOnScroll>
+        <div className="card-container animated-border glass-card bg-black/40 backdrop-blur-lg border border-white/10 max-w-3xl mx-auto relative rounded-lg p-px overflow-hidden">
+          <div className="card-content rounded-lg p-8 text-center relative z-10">
+            <h2 className="text-2xl font-medium mb-6 uppercase">Ready to join us?</h2>
+            <p className="text-secondary mb-8 max-w-lg mx-auto">
+              Start building better applications today with Codeon's powerful development platform.
             </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white p-8 rounded-2xl shadow-lg text-center card-hover"
-              >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center text-white mx-auto mb-6">
-                  {value.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
-              </motion.div>
-            ))}
+            <RainbowButton asChild>
+              <a href="#">Get started</a>
+            </RainbowButton>
           </div>
         </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Meet Our Team</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The brilliant minds behind our AI solutions and your success.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden card-hover"
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h3>
-                  <p className="text-primary-600 font-medium mb-3">{member.role}</p>
-                  <p className="text-gray-600 text-sm">{member.bio}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-500 to-secondary-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-white"
-          >
-            <h2 className="text-4xl font-bold mb-6">Ready to Work With Us?</h2>
-            <p className="text-xl opacity-90 mb-8">
-              Let's discuss how our team can help transform your business with AI.
-            </p>
-            <a href="/contact" className="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
-              Get in Touch
-            </a>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+      </RevealOnScroll>
+    </section>
   )
 } 

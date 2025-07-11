@@ -20,13 +20,13 @@ const Footer = () => {
               Transforming businesses through intelligent automation and AI solutions.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a href="#" className="text-secondary random-hover-color transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a href="#" className="text-secondary random-hover-color transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a href="#" className="text-secondary random-hover-color transition-colors">
                 <Github className="w-5 h-5" />
               </a>
             </div>
@@ -36,10 +36,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Services</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li><Link href="/services#process-automation" className="hover:text-primary-400 transition-colors">Process Automation</Link></li>
-              <li><Link href="/services#chatbots" className="hover:text-primary-400 transition-colors">AI Chatbots</Link></li>
-              <li><Link href="/services#analytics" className="hover:text-primary-400 transition-colors">Data Analytics</Link></li>
-              <li><Link href="/services#ml" className="hover:text-primary-400 transition-colors">Machine Learning</Link></li>
+              <li><Link href="/services#process-automation" className="random-hover-color transition-colors">Process Automation</Link></li>
+              <li><Link href="/services#chatbots" className="random-hover-color transition-colors">AI Chatbots</Link></li>
+              <li><Link href="/services#analytics" className="random-hover-color transition-colors">Data Analytics</Link></li>
+              <li><Link href="/services#ml" className="random-hover-color transition-colors">Machine Learning</Link></li>
             </ul>
           </div>
 
@@ -47,10 +47,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Company</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li><Link href="/about" className="hover:text-primary-400 transition-colors">About Us</Link></li>
-              <li><Link href="/case-studies" className="hover:text-primary-400 transition-colors">Case Studies</Link></li>
-              <li><Link href="/contact" className="hover:text-primary-400 transition-colors">Contact</Link></li>
-              <li><Link href="/careers" className="hover:text-primary-400 transition-colors">Careers</Link></li>
+              <li><Link href="/about" className="random-hover-color transition-colors">About Us</Link></li>
+              <li><Link href="/case-studies" className="random-hover-color transition-colors">Case Studies</Link></li>
+              <li><Link href="/contact" className="random-hover-color transition-colors">Contact</Link></li>
+              <li><Link href="/careers" className="random-hover-color transition-colors">Careers</Link></li>
             </ul>
           </div>
 
@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-secondary">
           <p>&copy; 2024 Spectrum AI. All rights reserved.</p>
         </div>
       </div>

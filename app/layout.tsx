@@ -3,6 +3,12 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import GlassBackdrop from '@/components/GlassBackdrop'
+import { usePathname } from 'next/navigation'
+import { AnimatePresence, motion } from 'framer-motion'
+import ClientLayout from '@/components/ClientLayout'
+// import { StagewiseToolbar } from '@stagewise/toolbar-next'
+// import { ReactPlugin } from '@stagewise-plugins/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,15 +31,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>
-        <div className="min-h-screen bg-gradient-to-br from-dark-50 to-dark-100">
-          <Header />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
+    <html lang="en">
+      <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      </head>
+      <body className={`${inter.className} antialiased bg-black text-white`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   )

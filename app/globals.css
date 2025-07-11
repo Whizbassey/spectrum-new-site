@@ -2,42 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+:root {
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-card: rgba(255,255,255,0.15);
+  --color-text: #0a0a0a;
+  --color-text-secondary: #52525b;
+  --color-primary: #8b5cf6;
+  --color-primary-dark: #6d28d9;
+  --color-secondary: #64748b;
+  --color-border: rgba(255,255,255,0.2);
+  --color-accent: #a78bfa;
+  --color-1: 0 100% 63%;
+  --color-2: 270 100% 63%;
+  --color-3: 210 100% 63%;
+  --color-4: 195 100% 63%;
+  --color-5: 90 100% 63%;
+}
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: #000;
+    color: #fff;
   }
-  
   body {
     font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    background: #000;
+    color: #fff;
+    transition: background 0.3s, color 0.3s;
+  }
+  code, pre, .metrics, .font-mono {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 400;
+  }
+  .text-secondary {
+    color: rgba(255,255,255,0.8) !important;
   }
 }
 
 @layer components {
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
-  }
-  
-  .gradient-bg {
-    @apply bg-gradient-to-br from-primary-500 via-secondary-500 to-primary-700;
-  }
-  
   .glass-effect {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
+    backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(255,255,255,0.15);
+    border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
   }
-  
-  .card-hover {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  .glass-navbar {
+    @apply bg-white/5 border border-white/10 rounded-full shadow-xl backdrop-blur-md;
   }
-  
+  .glass-card {
+    @apply glass-effect;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+  .gradient-text {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
   }
-  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px 0 rgba(139, 92, 246, 0.5);
+  }
   .btn-secondary {
-    @apply px-6 py-3 border-2 border-primary-500 text-primary-500 font-semibold rounded-lg hover:bg-primary-500 hover:text-white transition-all duration-300;
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    background: var(--color-primary);
+    color: #fff;
   }
 }
 
@@ -49,4 +110,181 @@
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+/* Rainbow Glow Effect for Card Hover */
+.rainbow-glow {
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.rainbow-glow:hover {
+  box-shadow: 0 0 0 2px #fff, 0 0 16px 4px #0ff, 0 0 32px 8px #f0f, 0 0 48px 16px #0ff;
+  border-color: transparent;
+  border-image: linear-gradient(90deg, #06f, #0ff, #f0f, #ff0, #06f) 1;
+}
+
+/* Animated Rainbow Line */
+.rainbow-line {
+  height: 4px;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #06f, #0ff, #f0f, #ff0, #06f);
+  background-size: 200% 100%;
+  animation: rainbow-move 2s linear infinite;
+}
+
+@keyframes rainbow-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes company-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+.animate-company-marquee {
+  animation: company-marquee 30s linear infinite;
+}
+
+/* Animated conic-gradient border for about page cards */
+.animated-border.card-container {
+  position: relative;
+  border-radius: 0.5rem;
+  padding: 1px;
+  overflow: hidden;
+}
+.animated-border.card-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent, 
+    rgba(0, 180, 216, 0), 
+    rgba(0, 180, 216, 0.3), 
+    rgba(0, 180, 216, 0.5), 
+    rgba(0, 180, 216, 0.3), 
+    rgba(0, 180, 216, 0),
+    transparent
+  );
+  animation: rotate 8s linear infinite;
+  z-index: -1;
+}
+.animated-border.card-container::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: black;
+  border-radius: 0.5rem;
+  z-index: -1;
+}
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.random-hover-color {
+  transition: color 0.2s;
+}
+.random-hover-color:hover {
+  /* Use a random color from the set each time hovered */
+  color: var(--random-hover-color, #fb923c); /* fallback to orange */
+}
+
+/* Keyframes and classes for random color assignment (JS will set --random-hover-color) */
+
+/* Rainbow Glow Effect for Card Hover */
+.rainbow-glow {
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.rainbow-glow:hover {
+  box-shadow: 0 0 0 2px #fff, 0 0 16px 4px #0ff, 0 0 32px 8px #f0f, 0 0 48px 16px #0ff;
+  border-color: transparent;
+  border-image: linear-gradient(90deg, #06f, #0ff, #f0f, #ff0, #06f) 1;
+}
+
+/* Animated Rainbow Line */
+.rainbow-line {
+  height: 4px;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #06f, #0ff, #f0f, #ff0, #06f);
+  background-size: 200% 100%;
+  animation: rainbow-move 2s linear infinite;
+}
+
+@keyframes rainbow-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes company-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+.animate-company-marquee {
+  animation: company-marquee 30s linear infinite;
+}
+
+/* Animated conic-gradient border for about page cards */
+.animated-border.card-container {
+  position: relative;
+  border-radius: 0.5rem;
+  padding: 1px;
+  overflow: hidden;
+}
+.animated-border.card-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent, 
+    rgba(0, 180, 216, 0), 
+    rgba(0, 180, 216, 0.3), 
+    rgba(0, 180, 216, 0.5), 
+    rgba(0, 180, 216, 0.3), 
+    rgba(0, 180, 216, 0),
+    transparent
+  );
+  animation: rotate 8s linear infinite;
+  z-index: -1;
+}
+.animated-border.card-container::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: black;
+  border-radius: 0.5rem;
+  z-index: -1;
+}
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 } 

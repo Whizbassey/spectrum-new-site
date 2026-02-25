@@ -1,7 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import { Brain, Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react'
+import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -11,9 +12,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
-                <Brain className="w-5 h-5 text-white" />
-              </div>
+              <Image
+                src="/images/spectrumlogo.webp"
+                alt="Spectrum AI logo"
+                width={36}
+                height={36}
+                className="w-9 h-9"
+              />
               <span className="text-xl font-bold">Spectrum AI</span>
             </Link>
             <p className="text-gray-300 text-sm">

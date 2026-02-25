@@ -1,0 +1,16 @@
+# Keep line endings consistent across OSes (Windows/Mac/Linux).
+# Store text files as LF in the repo and check them out as LF.
+* text=auto eol=lf
+
+# Windows-native scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Common binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary

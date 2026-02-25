@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, Brain, ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { RainbowButton } from "@/components/ui/rainbow-button"
 
 const Header = () => {
@@ -21,7 +22,14 @@ const Header = () => {
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-white/5 border border-white/10 rounded-full pt-3 pr-4 pb-3 pl-4 shadow-xl backdrop-blur-md w-[95vw] max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Brain className="w-6 h-6 text-white" />
+          <Image
+            src="/images/spectrumlogo.webp"
+            alt="Spectrum AI logo"
+            width={36}
+            height={36}
+            className="w-9 h-9"
+            priority
+          />
           <span className="ml-2 text-sm font-medium">Spectrum AI</span>
         </div>
         <div className="hidden md:flex items-center space-x-6 text-xs text-secondary ml-8">
